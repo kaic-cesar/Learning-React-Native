@@ -1,0 +1,128 @@
+// Podemos utilizar de forma especifica para o componente passando direto o timing    
+  Animated.timing(larAnimada, {
+    toValue: 350,
+    duration: 2000,
+    useNativeDriver: false
+  }).start();
+
+
+
+// Tambem podemos utilizar o método sequencia, ao finalizar a primeira animação, dará sequencia as próximas animações
+Animated.sequence([
+  Animated.timing(larAnimada, {
+    toValue: 300,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.timing(altAnimada, {
+    toValue: 170,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.timing(textAnimada, {
+    fontSize: 50
+  })
+]).start();
+
+
+// E podemos tambem utilizar o método paralelo, que irá animar todas as propriedades de uma vez
+Animated.parallel([
+  Animated.timing(larAnimada, {
+    toValue: 300,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.timing(altAnimada, {
+    toValue: 170,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.timing(textAnimada, {
+    fontSize: 50
+  })
+]).start();
+
+
+// E podemos utilizar os métodos simultâneamente
+Animated.sequence([
+  Animated.timing(opacidadeAnimada, {
+    toValue: 1,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.parallel([
+    Animated.timing(larAnimada, {
+      toValue: 300,
+      duration: 1000,
+      useNativeDriver: false
+    }),
+    Animated.timing(altAnimada, {
+      toValue: 200,
+      duration: 1000,
+      useNativeDriver: false
+    }),
+    Animated.timing(borderRadiusAnimada, {
+      toValue: 12,
+      duration: 2000,
+      useNativeDriver: false
+    })
+  ]),
+
+  Animated.timing(opacidadeAnimada, {
+    toValue: 0,
+    duration: 2000,
+    useNativeDriver: false
+  })
+]).start();
+
+
+// Método de loop 
+Animated.loop(
+  Animated.sequence([
+    Animated.timing(larAnimada, { // inicia o aumento do loop
+    toValue: 300,
+    duration: 2000,
+    useNativeDriver: false
+  }),
+  Animated.timing(larAnimada, { // retorna para o valor inicial para gerar um efeito suave 
+    toValue: 150,
+    duration: 2000,
+    useNativeDriver: false
+  })
+  ]).start()
+);
+
+
+
+// Interpolação 
+useEffect(() => {
+  Animated.sequence([
+    Animated.timing(larAnimada, {
+      toValue: 100,
+      duration: 2000,
+      useNativeDriver: false
+    }),
+    Animated.timing(altAnimada, {
+      toValue: 100,
+      duration: 2000,
+      useNativeDriver: false 
+    })
+  ]).start(() => {
+    alert('Animação concuida')
+  });
+}, []);
+
+  // Usamos a interpolação para passarmos termos uma entrada que é um valor (inteiro) para uma saída string
+  let porcentagemLargura = larAnimada.interpolate({
+    inputRange: [0, 100], //Entrada
+    outputRange: ['0%', '100%'] // Vai sair de 0% até 100%
+  })
+
+  let porcentagemAltura = altAnimada.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%']
+  })
+
+
+// React Native Animatable
+
