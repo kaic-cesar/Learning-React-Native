@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Animated, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
+
 // Criando um componente para animação
 const ButtonAnimated = Animatable.createAnimatableComponent(TouchableOpacity);
 
