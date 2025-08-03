@@ -1,12 +1,63 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import Feather from '@expo/vector-icons/Feather';
+
+import Home from './src/Pages/Home'
+import Sobre from './src/Pages/Sobre'
+import Contato from './src/Pages/Contato';
 
 export default function App() {
+  const Tab = createBottomTabNavigator();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          // Todas as propriedades que pasarmos aqui, irá atingir todas as screens
+          headerShown: false,
+          tabBarHideOnKeyboard: true, // Ativamos para que o tabBar não sobreponha o teclado 
+          tabBarShowLabel: false, // tirar os labels (texto) do tab
+          tabBarActiveTintColor: '#ff0000', // altera a cor do icone quando ta ativo
+
+          tabBarStyle:{
+            backgroundColor: '#222', 
+            borderTopWidth: 0 // para garantir que não vá haver uma borda entre a View e o Tab
+          }
+        }}
+      >
+        <Tab.Screen 
+          name='Home' 
+          component={Home}
+          options={{
+            tabBarIcon: (color, size) => {
+              return( <Feather name='home' color={color} size={size}/>)
+            }
+          }}
+        />
+
+        <Tab.Screen 
+          name='Sobre' 
+          component={Sobre}
+          options={{
+            tabBarIcon: (color, size) => {
+              return ( <Feather name='file-text' color={color} size={size}/>)
+            }
+          }}
+        />
+
+        <Tab.Screen 
+          name='Contato' 
+          component={Contato}
+          options={{
+            // headerShown: false, // Para esconder o header apenas dessa Screen
+            tabBarIcon: (color, size) => {
+              return ( <Feather name='phone-call' color={color} size={size}/>)
+            }
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
